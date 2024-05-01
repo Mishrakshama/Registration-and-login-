@@ -29,8 +29,66 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+    
+    private boolean verified;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private VerificationToken verificationToken;
 
-    public Long getId() {
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private PasswordResetToken passwordResetToken;
+    
+
+    public boolean isVerified() {
+		return verified;
+	}
+
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
+
+	public VerificationToken getVerificationToken() {
+		return verificationToken;
+	}
+
+	
+
+	public User(Long id, String name, String email, String password, boolean verified,
+			VerificationToken verificationToken, PasswordResetToken passwordResetToken, List<Role> roles) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.verified = verified;
+		this.verificationToken = verificationToken;
+		this.passwordResetToken = passwordResetToken;
+		this.roles = roles;
+	}
+
+
+	public User() {
+	
+	}
+
+
+	public void setVerificationToken(VerificationToken verificationToken) {
+		this.verificationToken = verificationToken;
+	}
+
+
+	public PasswordResetToken getPasswordResetToken() {
+		return passwordResetToken;
+	}
+
+
+	public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
+		this.passwordResetToken = passwordResetToken;
+	}
+
+
+	public Long getId() {
 		return id;
 	}
 
